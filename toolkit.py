@@ -1,6 +1,7 @@
 
 import math
 import random
+import ast
 
 '''
 A list of Python functions
@@ -103,10 +104,34 @@ def normalizeList(l) -> list:
 def cumulativeSum(l) -> list:
     return [sum(l[:i + 1]) for i in range(len(l))]
 
+def cumulativeProbability(l) -> list:
+    return [x / sum(l) for x in cumulativeSum(l)]
 
+def decimalToBinary(x) -> list:
+    return [int(digit) for digit in bin(x)[2:]]
 
+def binaryToDecimal(l) -> int:
+    if(len(l) == 0):
+        return 0
+    return int("".join([str(x) for x in l]), 2)
 
+def removeNIndexFromString(s, n) -> str:
+    return s[:n] + s[n + 1:]
 
+def evaluateString(s) -> float:
+    return ast.literal_eval(s)
+
+# print(buildArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "[[_, _], _, [_, [_, _]], _, _ ,[[[_]]]]"))
+def buildArray(l, template) -> list:
+    t = list(template)
+    c = 0
+    for i in range(len(t)):
+        if(t[i] == "_"):
+            t[i] = l[c]
+            c += 1
+    j = ''.join(str(e) for e in t)
+    return evaluateString(j)
+            
 
 
 
